@@ -3,22 +3,20 @@
 class A
 {
     int a;
-
-public:
     static bool flag;
 
-    A() { std::cin >> a; }
+public:
+    A()
+    {
+        flag = false;
+        std::cin >> a;
+    }
 
     A(const A &b)
     {
+        flag = false;
         std::cin >> a;
-        a += b.get();
-    }
-
-    int
-    get() const
-    {
-        return a;
+        a += b.a;
     }
 
     ~A()
@@ -30,4 +28,4 @@ public:
     }
 };
 
-bool A::flag = false;
+bool A::flag;

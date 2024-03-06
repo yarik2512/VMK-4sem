@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <optional>
 
 constexpr double EPS = 1e-6;
 
@@ -55,7 +56,7 @@ public:
 
     friend int intersecting(const Line &A, const Line &B);
 
-    friend Point intersect(const Line &A, const Line &B);
+    friend std::optional<Point> intersect(const Line &A, const Line &B);
 };
 
 int
@@ -72,12 +73,15 @@ intersecting(const Line &A, const Line &B)
     }
 }
 
-Point
+std::optional<Point>
 intersect(const Line &A, const Line &B)
 {
+    if (intersecting(A, B) != 1) {
+        return std::nullopt;
+    }
     double x = -(A.c * B.b - B.c * A.b) / (A.a * B.b - B.a * A.b);
     double y = -(A.a * B.c - B.a * A.c) / (A.a * B.b - B.a * A.b);
-    return {x, y};
+    return Point(x, y);
 }
 
 int
@@ -94,11 +98,10 @@ main()
         }
         lns[i] = Line(pts[0], pts[1]);
     }
-    int inter = intersecting(lns[0], lns[1]);
-    cout << inter << endl;
-    if (inter == 1) {
-        Point inter_pnt = intersect(lns[0], lns[1]);
-        cout << std::setprecision(6) << inter_pnt.getX() << " " << inter_pnt.getY() << endl;
+    cout << intersecting(lns[0], lns[1]) << endl;
+    std::optional<Point> inter_pnt = intersect(lns[0], lns[1]);
+    if (inter_pnt != std::nullopt) {
+        cout << std::setprecision(6) << inter_pnt->getX() << " " << inter_pnt->getY() << endl;
     }
     return 0;
 }

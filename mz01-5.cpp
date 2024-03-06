@@ -19,7 +19,7 @@ int main() {
             }
             x = (x << CHAR_BIT) | c;
         }
-        if (i != 0 && i % 4 == 0) {
+        if (i != 0 && i % OCTS_CNT == 0) {
             cout << x << endl;
             x = 0;
         }
