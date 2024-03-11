@@ -4,9 +4,10 @@
 
 namespace numbers
 {
+constexpr size_t BUF_SZ = 38;
 class complex
 {
-    double x, y;
+    double x = 0, y = 0;
 
 public:
     complex(double re = 0, double im = 0) : x(re), y(im){};
@@ -45,8 +46,8 @@ public:
     std::string
     to_string() const
     {
-        char buf[40];
-        snprintf(buf, 40, "(%.10g,%.10g)", x, y);
+        char buf[BUF_SZ];
+        snprintf(buf, BUF_SZ, "(%.10g,%.10g)", x, y);
         return buf;
     }
     complex &
