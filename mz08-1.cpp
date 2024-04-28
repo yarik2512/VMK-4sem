@@ -6,7 +6,7 @@ class c
     std::string s;
 
 public:
-    c(std::string s_) : s(std::move(s_)){}
+    c(const std::string &s_) : s(s_){}
 
     ~c() {
         if (s.empty()) {
@@ -26,6 +26,7 @@ f()
     try {
         f();
     } catch (c &) {
+        // catch для того, чтобы вызывался деструктор c, который выводит строку
         throw c(s);
     }
 }
